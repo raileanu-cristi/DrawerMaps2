@@ -47,6 +47,11 @@
             android:label="@string/title_activity_choose_objective_types"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".LanguageSelectActivity"
+            android:label="@string/title_activity_select_languages"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

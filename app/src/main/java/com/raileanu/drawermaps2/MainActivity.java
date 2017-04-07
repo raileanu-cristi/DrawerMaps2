@@ -361,9 +361,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_traditions)
         {
             Log.println(Log.DEBUG, "NavigationItemSelected", " launching TRADITION obj activity  !!!!");
+
         } else if (id == R.id.nav_language)
         {
             Log.println(Log.DEBUG, "NavigationItemSelected", " launching LANGUAGE obj activity  !!!!");
+            Intent languageSelectIntent = new Intent(this, LanguageSelectActivity.class);
+            startActivity(languageSelectIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
