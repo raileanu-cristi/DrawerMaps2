@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -39,6 +40,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity
 {
 
     // Data Fields
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
     GoogleMap mGoogleMap;
     SupportMapFragment mapFrag;
     LocationRequest mLocationRequest;
@@ -63,9 +67,29 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // set up the toolbar
+        //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //
+        // set up the drawer
+        //
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        //
+        // set up the navigation view
+        //
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //
+        // set up and launch the map
+        //
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         mapFrag.getMapAsync(this);
     }
@@ -80,7 +104,7 @@ public class MainActivity extends AppCompatActivity
         //stop location updates when Activity is no longer active
         if (mGoogleApiClient != null)
         {
-//            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
     }
 
@@ -186,37 +210,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-//    /**
-//     * Called when the provider status changes. This method is called when
-//     * a provider is unable to fetch a location or if the provider has recently
-//     * become available after a period of unavailability.
-//     *
-//     * @param provider the name of the location provider associated with this
-//     *                 update.
-//     * @param status   {@link LocationProvider#OUT_OF_SERVICE} if the
-//     *                 provider is out of service, and this is not expected to change in the
-//     *                 near future; {@link LocationProvider#TEMPORARILY_UNAVAILABLE} if
-//     *                 the provider is temporarily unavailable but is expected to be available
-//     *                 shortly; and {@link LocationProvider#AVAILABLE} if the
-//     *                 provider is currently available.
-//     * @param extras   an optional Bundle which will contain provider specific
-//     *                 status variables.
-//     *                 <p>
-//     *                 <p> A number of common key/value pairs for the extras Bundle are listed
-//     *                 below. Providers that use any of the keys on this list must
-//     *                 provide the corresponding value as described below.
-//     *                 <p>
-//     *                 <ul>
-//     *                 <li> satellites - the number of satellites used to derive the fix
-//     */
 
 
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
 
     private void checkLocationPermission()
     {
+
         Log.println(Log.DEBUG, "checkLocationP ", "point 0");
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED)
@@ -350,14 +350,20 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item)
     {
         // Handle navigation view item clicks here.
+        Log.println(Log.DEBUG, "NavigationItemSelected", " I AM HERE  !!!!");
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera)
+        if (id == R.id.nav_filter)
         {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery)
+            Log.println(Log.DEBUG, "NavigationItemSelected", " launching filter obj activity  !!!!");
+            Intent filterObjectivesIntent = new Intent(this, FilterObjectivesActivity.class);
+            startActivity(filterObjectivesIntent);
+        } else if (id == R.id.nav_traditions)
         {
-
+            Log.println(Log.DEBUG, "NavigationItemSelected", " launching TRADITION obj activity  !!!!");
+        } else if (id == R.id.nav_language)
+        {
+            Log.println(Log.DEBUG, "NavigationItemSelected", " launching LANGUAGE obj activity  !!!!");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

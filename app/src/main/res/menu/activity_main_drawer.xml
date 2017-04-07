@@ -3,7 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_filter"
             android:icon="@drawable/ic_menu_share"
             android:title="Filtrare Obiective"/>
         <item
@@ -11,7 +11,7 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Traditii Locale"/>
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_language"
             android:icon="@drawable/ic_menu_manage"
             android:title="Alege limba"/>
 
